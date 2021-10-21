@@ -6,11 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: <<__git_repo.url__>>
-    targetRevision: <<__git_repo.target_revision__>>
-    path: distribution/kubeflow/notebooks/pod-defaults
+    repoURL: https://github.com/dskudney/argoflow
+     path: distribution/kubeflow/notebooks/pod-defaults
     kustomize:
-      version: v4.0.5
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

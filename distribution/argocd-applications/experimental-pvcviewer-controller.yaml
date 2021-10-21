@@ -6,12 +6,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: <<__git_repo.url__>>
-    targetRevision: <<__git_repo.target_revision__>>
+    repoURL: https://github.com/dskudney/argoflow
     path: distribution/kubeflow/notebooks/experimental-pvcviewer-controller
     kustomize:
-      version: v4.0.5
-  destination:
+    destination:
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
