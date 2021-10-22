@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/dskudney/argoflow
-   path: distribution/kubeflow/namespace
+    path: distribution/kubeflow/namespace
     kustomize:
   destination:
     server: https://kubernetes.default.svc
