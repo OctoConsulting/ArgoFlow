@@ -8,8 +8,9 @@ spec:
   source:
     repoURL: https://github.com/dskudney/argoflow
     targetRevision: HEAD
-    path: metallb
+    path: distribution/metallb
     kustomize:
+      version: v4.0.5
    destination:
     server: https://kubernetes.default.svc
   syncPolicy:
