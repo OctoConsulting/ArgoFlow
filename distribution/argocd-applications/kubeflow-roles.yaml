@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/dskudney/argoflow
+   repoURL: https://github.com/dskudney/argoflow
    path: distribution/kubeflow/roles
    kustomize:
   destination:
