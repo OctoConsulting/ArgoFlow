@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/dskudney/argoflow
    path: distribution/kubeflow/notebooks/notebook-controller
-    kustomize:
+   kustomize:
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

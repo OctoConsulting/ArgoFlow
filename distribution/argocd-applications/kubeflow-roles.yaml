@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/dskudney/argoflow
    path: distribution/kubeflow/roles
-    kustomize:
+   kustomize:
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
