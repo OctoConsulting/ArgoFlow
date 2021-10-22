@@ -9,7 +9,7 @@ spec:
     repoURL: https://github.com/dskudney/argoflow
     path: distribution/kubeflow/pipelines
     kustomize:
- destination:
+  destination:
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
