@@ -2,7 +2,7 @@
 
 # Perform a simple recursive find-and-replace on all variables defined in setup.conf
 export SETUP_CONF_PATH=$1 # location of the setup config
-export DISTRIBUTION_PATH=./distribution # folder where the distribution's YAML files are to be found
+export DISTRIBUTION_PATH=. # folder where the distribution's YAML files are to be found
 
 while IFS="=" read PLACEHOLDER VALUE # While loop that will perform simple parsing. On each line MY_VAR=123 will be read into PLACEHOLDER=MY_VAR, VALUE=123
 do
@@ -13,7 +13,7 @@ do
 done <${SETUP_CONF_PATH} # pass the setup config into the while loop
 
 # Create metallb secret
-# kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" --dry-run=client -o yaml | kubeseal | yq eval -P > ${DISTRIBUTION_PATH}/metallb/secret.yaml
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" --dry-run=client -o yaml | kubeseal | yq eval -P > ${DISTRIBUTION_PATH}/metallb/secret.yaml
 
 # Auth setup
 
@@ -21,8 +21,10 @@ COOKIE_SECRET=$(python3 -c 'import os,base64; print(base64.urlsafe_b64encode(os.
 OIDC_CLIENT_ID=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
 OIDC_CLIENT_SECRET=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
 
+echo "OIDC_CLIENT_ID=" + $OIDC_CLIENT_ID
+echo "OIDC_CLIENT_SECRET=" + $OIDC_CLIENT_SECRET
+
 kubectl create secret generic -n auth oauth2-proxy --from-literal=client-id=${OIDC_CLIENT_ID} --from-literal=client-secret=${OIDC_CLIENT_SECRET} --from-literal=cookie-secret=${COOKIE_SECRET} --dry-run=client -o yaml | kubeseal | yq eval -P > ${DISTRIBUTION_PATH}/oidc-auth/overlays/dex/oauth2-proxy-secret.yaml
-kubectl create secret generic -n auth oauth2-proxy --from-literal=client-id=${OIDC_CLIENT_ID} --from-literal=client-secret=${OIDC_CLIENT_SECRET} --from-literal=cookie-secret=${COOKIE_SECRET} --dry-run=client -o yaml | kubeseal | yq eval -P > ${DISTRIBUTION_PATH}/oidc-auth/overlays/keycloak/oauth2-proxy-secret.yaml
 
 DATABASE_PASS=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
 POSTGRESQL_PASS=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
